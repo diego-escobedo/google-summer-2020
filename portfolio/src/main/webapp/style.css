@@ -7,3 +7,22 @@
 #greeting-container {
   margin-top: 20px;
 }
+
+#fact-container {
+  margin-top: 20px;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+header{
+    margin: 0;
+    background: #ADD8E6;
+}
+
+body{
+    margin: 0;
+    background: #d3d3d3;
+}
