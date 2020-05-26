@@ -56,30 +56,6 @@ header{
     display: flex;
     align-items: center;  
 }
-.nav-toggle-label span,
-.nav-toggle-label span::before,
-.nav-toggle-label span::after {
-    display: block;
-    background: white;
-    height: 2px;
-    width: 2em;
-    border-radius: 1px;
-    position: relative;
-}
-
-.nav-toggle-label span::before,
-.nav-toggle-label span::after {
-    content: '';
-    position: absolute;
-}
-
-.nav-toggle-label span::before {
-    bottom: 7px;
-}
-
-.nav-toggle-label span::after {
-    top: 7px;
-}
 
 nav{
     position: absolute;
@@ -177,3 +153,15 @@ nav a:hover {
         transform: scale(1,1);
     }
 }
+
+/* nav styles end here */
+
+/* social styles start here */
+
+h1 {
+    font-weight: lighter;
+    font-size: 80px;
+}
+
+
+
