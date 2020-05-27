@@ -1,28 +1,359 @@
-#content {
-  margin-left: auto;
-  margin-right: auto;
-  width: 650px;
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+body {
+  margin: 0;
+  font-family: 'Raleway';
+  font-size: 16px;
+  line-height: 1.8em;
+  --main-white-color: white;
+  --main-purple-color: #9e89b8;
 }
 
-#greeting-container {
+body,html {
+    height: 100%;
+}
+
+:root {
+    --navbackground: rgba(135,206,235,.85);
+}
+
+*,*::before, *::after{
+    box-sizing: border-box;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.wrapper > * {
+  padding: 20px;
+}
+
+.page-main {
+    position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 350px;
+  align-items: center;
+  flex: 1;
+}
+
+@media screen and (min-width: 768px) {
+  .page-main {
+    padding-left: 90px;
+  }
+}
+
+#greeting-container , #fact-container {
   margin-top: 20px;
 }
 
-#fact-container {
-  margin-top: 20px;
-}
-
-.container {
-    width: 80%;
-    margin: 0 auto;
-}
+/* nav styles start here */
 
 header{
     margin: 0;
-    background: #ADD8E6;
+    top: 0;
+    background: var(--navbackground);
+    text-align: center;
+    position: relative;
+    z-index: 999;
+    width: 100%;
 }
 
-body{
+.nav-toggle{
+    display:none;
+}
+
+.nav-toggle-label{
+    position: absolute;
+    top:0;
+    left:0;
+    margin-left: 1em;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+nav{
+    position: absolute;
+    text-align: left;
+    top: 100%;
+    left: 0;
+    background: var(--navbackground);
+    width: 100%;
+    transform: scale(1,0);
+    transform-origin: top;
+    transition: transform 400ms ease-in-out;
+}
+nav ul{
     margin: 0;
-    background: #d3d3d3;
+    padding: 0;
+    list-style: none;
+}
+nav li{
+    margin-bottom: 1em;
+    margin-left: 1em;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 150ms ease-in-out;
+}
+
+nav a:hover {
+    color: black;
+}
+
+.nav-toggle:checked ~ nav{
+    transform: scale(1,1);
+}
+
+.nav-toggle:checked ~ nav a{
+    opacity: 1;
+    transition: opacity 250ms ease-in-out 250ms;
+}
+
+@media screen and (min-width:800px){
+    .nav-toggle-label {
+        display:none;
+    }
+
+    header{
+        display: grid;
+        grid-template-columns: 1fr auto minmax(600px, 3fr) 1fr;
+    }
+
+    .logo {
+        grid-column: 2 / span 1;
+    }
+
+    nav {
+        all: unset;
+        grid-column: 3 / span 1;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    nav ul {
+        display: flex;
+    }
+
+    nav li {
+        margin-left: 3em;
+        margin-bottom: 0;
+    }
+
+    nav a {
+        opacity: 1;
+        position: relative;
+    }
+
+    nav a::before {
+        content:'';
+        display:block;
+        height: 5px;
+        background: black;
+        position: absolute;
+        top: -.75em;
+        left: 0;
+        right: 0;
+        transform: scale(0,1);
+        transition: transform  ease-in-out 250ms;
+    }
+
+    nav a:hover::before {
+        transform: scale(1,1);
+    }
+}
+
+/* nav styles end here */
+
+/* footer styles start here */
+
+.page-footer {
+  display: flex;
+  flex-direction: column;
+  width:100%;
+  background:rgba(35,43,43,.3);
+  justify-content:center;
+  align-items: center;
+}
+
+.page-footer ul {
+  display: flex;
+  margin-bottom: 5px;
+  list-style-type: none;
+  align-items: center;
+  justify-content:center;
+}
+
+.page-footer li {
+  list-style-type: none;
+  display: inline-block;
+  flex: 0 1 auto;
+}
+
+@media screen and (min-width: 550px) {
+  .page-footer {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .page-footer ul {
+    margin-bottom: 0;
+    align-items: center;
+    justify-content:center;
+  }
+}
+
+.icon {
+    color: black;
+    padding: 15px;
+}
+
+.icon:hover{
+    color: whitesmoke;
+    transition: .45s;
+}
+
+/* footer styles end here */
+
+/* resume styles begin here */
+
+article {
+  padding:0 1em;
+}
+
+section{
+  margin: 1em;
+  padding: 1em;
+}
+
+.resume-header, .resume-main {
+  margin: 0 auto;
+}
+
+.resume-header {
+  padding: 2em;
+  text-align: center;
+  background-image: url('./images/bg.jpg');
+  background-size: cover;
+  background-position: fixed;
+  color: white;
+  width: 100%;
+}
+
+.resume-header section {
+  margin: 0 auto;
+  max-width: 640px;
+}
+
+.resume-header img {
+  border-radius: 50%;
+  max-width: 150px;
+}
+
+h1 {
+  text-transform: uppercase;
+  margin: 1em 0;
+}
+
+h3 {
+  text-transform: uppercase;
+}
+
+h3, h4 {
+  font-weight: bold;
+}
+
+.resume-main {
+  max-width: 1140px;
+}
+
+.resume-main section:not(:last-child) {
+  border-bottom: 1px solid #ccc;
+}
+
+.course, .skills {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.course .title {
+  color: #509e98;
+  -ms-flex: 0 0 33.3%;
+  flex: 0 0 33.3%;
+  max-width: 33%;
+}
+
+.course .descrition {
+  -ms-flex: 0 0 66.6%;
+  flex: 0 0 66.6%;
+  max-width: 66.6%;
+}
+
+.course .descrition p {
+  padding-left: 1em;
+}
+
+.skills .column {
+  -ms-flex: 0 0 50%%;
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+.skills .column ul, ul.job-description {
+  list-style-type: none;
+}
+
+.skills .column ul > li:before {
+  content: "►";
+  padding-right: 0.5em;
+  color: #509e98;
+}
+
+.school, .job-title {
+  text-transform: capitalize;
+}
+
+.school span, .job-title span {
+  color: #889499;
+  text-decoration: underline;
+}
+
+ul.job-description li:before{
+  content: "✔";
+  padding-right: 0.5em;
+  color: #509e98;
+}
+
+@media only screen and (max-width: 768px) {
+  .course {
+    display: block;
+  }
+
+  .course .title, .course .descrition {
+    max-width: 100%;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .skills {
+    display: block;
+  }
+
+  .skills .column {
+    max-width: 100%;
+  }
+
 }
