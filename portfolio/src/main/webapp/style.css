@@ -8,7 +8,18 @@
     box-sizing: border-box;
 }
 
+.wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    align-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+}
+
 .content {
+  text-align: left;
   margin-left: auto;
   margin-right: auto;
   width: 650px;
@@ -33,7 +44,6 @@ body{
 /* nav styles start here */
 
 header{
-    /* TODO: Figure out why this looks jank for small screens*/
     margin: 0;
     top: 0;
     background: var(--navbackground);
@@ -158,9 +168,49 @@ nav a:hover {
 
 /* social styles start here */
 
-h1 {
-    font-weight: lighter;
-    font-size: 80px;
+
+.bottom {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 650px;
+}
+
+.icon {
+    color: black;
+    padding: 10px;
+}
+
+.icon:hover{
+    color: whitesmoke;
+    transition: .45s;
+}
+
+#footer {
+   position:fixed;
+   text-align: center;
+   vertical-align: middle;
+   bottom: 0;
+   width:100%;
+   background:rgba(35,43,43,.1);
+}
+
+#footer ul {
+    list-style: none;
+    display: inline-block;
+    vertical-align:  middle;
+}
+
+#footer li {
+    padding-left: 20px;
+    display: inline;
+    list-style-type: none;
+    vertical-align: middle;
+}
+
+#footer a {
+    vertical-align: middle;
+    display: inline-block;
 }
 
 
