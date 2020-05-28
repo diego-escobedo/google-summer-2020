@@ -1,0 +1,144 @@
+article {
+  padding:0 1em;
+}
+
+section{
+  margin: 1em;
+  padding: 1em;
+}
+
+.resume-header, .resume-main {
+  margin: 0 auto;
+}
+
+.resume-header {
+  padding: 2em;
+  text-align: center;
+  background-image: url('../images/bg.jpg');
+  background-size: cover;
+  background-position: fixed;
+  color: white;
+  width: 100%;
+}
+
+.resume-header section {
+  margin: 0 auto;
+  max-width: 640px;
+}
+
+.resume-header img {
+  border-radius: 50%;
+  max-width: 150px;
+}
+
+
+
+.resume-main {
+  max-width: 1140px;
+}
+
+.resume-main section:not(:last-child) {
+  border-bottom: 1px solid #ccc;
+}
+
+.course, .skills {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.course .title {
+  color: #509e98;
+  -ms-flex: 0 0 33.3%;
+  flex: 0 0 33.3%;
+  max-width: 33%;
+}
+
+.course .descrition {
+  -ms-flex: 0 0 66.6%;
+  flex: 0 0 66.6%;
+  max-width: 66.6%;
+}
+
+.course .descrition p {
+  padding: auto auto auto 1em;
+}
+
+.skills .column {
+  flex: 0 0 33%;
+  max-width: 33%;
+  padding: 2em;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.skills .column ul {
+  padding-left: 0;
+  text-align: left;
+}
+
+.skills .column ul li {
+  display: inline-block;
+    white-space: nowrap;
+}
+
+.skills .column ul, ul.job-description {
+  list-style-type: none;
+}
+
+.skills .column-pic {
+
+  max-width: 33%;
+  padding: 2em auto auto 1em;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.school, .job-title {
+  text-transform: capitalize;
+}
+
+.school span, .job-title span {
+  color: #889499;
+  text-decoration: underline;
+}
+
+ul.job-description li:before{
+  content: "✔";
+  padding-right: 0.5em;
+  color: #509e98;
+}
+
+@media only screen and (max-width: 768px) {
+  .course {
+    display: block;
+  }
+
+  .course .title, .course .descrition {
+    max-width: 100%;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .skills {
+    display: block;
+  }
+
+  .skills .column {
+    max-width: 100%;
+  }
+
+}
+
+.job-title strong {
+    font-size: 22px;
+}
+
+.course .title {
+  padding-right: 30px;
+  max-width: 275px;
+}
