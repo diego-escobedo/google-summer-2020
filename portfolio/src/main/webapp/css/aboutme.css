@@ -56,13 +56,13 @@ section{
   max-width: 33%;
 }
 
-.course .descrition {
+.course .description {
   -ms-flex: 0 0 66.6%;
   flex: 0 0 66.6%;
   max-width: 66.6%;
 }
 
-.course .descrition p {
+.course .description p {
   padding: auto auto auto 1em;
 }
 
@@ -118,7 +118,7 @@ ul.job-description li:before{
     display: block;
   }
 
-  .course .title, .course .descrition {
+  .course .title, .course .description {
     max-width: 100%;
   }
 }

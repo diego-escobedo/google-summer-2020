@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Resume - Diego</title>
+  <title>Projects</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <link rel="stylesheet" href="./css/style.css">
@@ -34,23 +34,23 @@
         <div class='title'>
           <a href="./proj/mines.zip"><h4>Hypermines</h4></a>
         </div>
-        <div class="descrition">
+        <div class="description">
           <p>N-dimensional minesweeper. Probably not as good-looking as Microsoft's version, but I don't think you can play their version in a hypercube. Made for 6.009, MIT's Fundamentals of Programming course. Web app not available, but feel free to download the source code! <br/> </p>
           <div class="row">
-            <a href="javascript:toggle('instructions','mines')"><p class="toggle" style="padding-right:1em">How to Use</p></a>
-            <a href="javascript:toggle('image','mines')"><p class="toggle">See Picture</p></a>
+            <a href="javascript:toggle('mines')"><p class="toggle">See More</p></a>
           </div>
         </div>
       </article>
-      <div class="row"
-            <p id="instructions_mines" style="display:none;">To run the app from your computer, unzip the files, right click server.py and go to properties, and copy the location. Then, open up the terminal, and type "cd" and then paste the location of server.py. Then, type "python3 server.py", wait a little bit, and then type "localhost:8000" on your web browser. </p>
-          <img id="image_mines" width="677" height="391" src="./images/hypermines.jpg" alt="a game of hypermines" style="display:none;"></img>
+      <div id='mines_more' class="see-more-row" style='display:none;'>
+           <img  width="677" height="391" src="./images/hypermines.jpg" alt="a game of hypermines" style="padding:1em"></img>
+          <p> To run the app from your computer, unzip the files, right click server.py and go to properties, and copy the location. Then, open up the terminal, and type "cd" and then paste the location of server.py. Then, type "python3 server.py", wait a little bit, and then type "localhost:8000" on your web browser. </p>
+
         </div>
       <article class='course'>
         <div class='title'>
           <a href="https://github.com/diego-escobedo/NBA-Analytics"><h4>NN-Allstar</h4></a>
         </div>
-        <div class="descrition">
+        <div class="description">
           <p>More of an attempt to buy into the ML hype and learn some Tensorflow than a serious attempt at making a model, this neural net takes training data from the last 20 years and tries to predict who will be an All-Star in the current year. It was great to learn about and contribute to the only good <a href="https://github.com/vishaalagartha/basketball_reference_scraper"> basketball data scraper</a> out there. <br><br>
 
           No visualization available.</p>
@@ -61,17 +61,18 @@
         <div class='title'>
           <a href="./proj/zoo.zip"><h4>Zoo Mania</h4></a>
         </div>
-        <div class="descrition">
+        <div class="description">
           <p>Inspired by the timeless <a href="https://ninjakiwi.com/Games/Tower-Defense/Play/Bloons-Tower-Defense-5.html"> Bloons Tower Defense</a>, I made a small tower defense game. It's a little slow and buggy, but it works alright. Made for 6.009, MIT's Fundamentals of Programming course. Web app not available, but feel free to download the source code! </p>
 
           <div class="row">
-            <a href="javascript:toggle('instructions','zoo')"><p class="toggle" style="padding-right:1em">How to Use</p></a>
-            <a href="javascript:toggle('image','zoo')"><p class="toggle">See Picture</p></a>
+            <a href="javascript:toggle('zoo')"><p class="toggle">See More</p></a>
           </div>
-          <p id="instructions_zoo" style="display:none;">To run the app from your computer, unzip the files, right click server.py and go to properties, and copy the location. Then, open up the terminal, and type "cd" and then paste the location of server.py. Then, type "python3 server.py", wait a little bit, and then type "localhost:8000" on your web browser. </p>
-          <img id="image_zoo" width="677" height="549" src="./images/zoomania.jpg" alt="a game of hypermines" style="display:none;"></img>
         </div>
       </article>
+      <div id='zoo_more' class="see-more-row" style='display:none;'>
+           <img  width="677" height="549" src="./images/zoomania.jpg" alt="a game of zoo mania" style="padding:1em"></img>
+          <p> To run the app from your computer, unzip the files, right click server.py and go to properties, and copy the location. Then, open up the terminal, and type "cd" and then paste the location of server.py. Then, type "python3 server.py", wait a little bit, and then type "localhost:8000" on your web browser. </p>
+        </div>
 
 
   </section>
@@ -83,7 +84,7 @@
       <div class='title'>
         <a href="./proj/covid_proj.ipynb" download="./proj/covid_proj.ipynb" target="_blank"><h4>COVID-19 Walkthrough</h4></a>
       </div>
-      <div class="descrition">
+      <div class="description">
         <p>Final project for 6.S083, MIT's class called "Computational Thinking in Julia". I made a walkthrough of how to use gradient descent to fit real-world COVID data to a <a href="https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology#The_SEIR_model">SEIR Model</a>. Fitting this data is extremely important, as these models give us powerful insights about the spread of the disease, but finding the right parameters for the differential equations is not an easy task. <br/> <br/>
 
         View a <a href="./proj/covid-sim.html">static version here</a>.</p>
