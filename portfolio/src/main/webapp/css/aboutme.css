@@ -68,7 +68,7 @@ section{
 
 .skills .column {
   flex: 0 0 33%;
-  max-width: 33%;
+  max-width: 33.333%;
   padding: 2em;
   align-items: center;
   justify-content: center;
@@ -141,4 +141,13 @@ ul.job-description li:before{
 .course .title {
   padding-right: 30px;
   max-width: 275px;
+}
+
+.list-box {
+    display: flex;
+    flex-direction: row;
+}
+
+.list-box ul {
+  list-style: unset;
 }
