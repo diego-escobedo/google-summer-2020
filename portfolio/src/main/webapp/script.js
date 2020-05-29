@@ -32,7 +32,13 @@ function addRandomGreeting() {
  */
 function addRandomFact() {
   const facts =
-      ['I have a sister also going to MIT', 'I have lived in 7 cities and 3 continents','I am a massive Star Wars fan','My favorite food is pizza! Yum'];
+      ['I have a sister also going to MIT',
+      'I have lived in 7 cities and 3 countries',
+      'I am a massive Star Wars fan',
+      'I have never broken a bone',
+      'My favorite artist is Jackson Pollock',
+      'I can solve a Rubik\'s cube in under 10 hours', 
+      'My favorite food is pizza! Yum'];
   // Pick a random fact.
   const fact = facts[Math.floor(Math.random() * facts.length)];
 
@@ -41,11 +47,11 @@ function addRandomFact() {
   factContainer.innerText = fact;
 }
 
-function toggle(content, project) {
-  var find = content.concat("_",project);
+function toggle(project) {
+  var find = project.concat("_","more");
   var x = document.getElementById(find);
   if (x.style.display === "none") {
-    x.style.display = "block";
+    x.style.display = "flex";
   } else {
     x.style.display = "none";
   }
