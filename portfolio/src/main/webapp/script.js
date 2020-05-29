@@ -32,7 +32,7 @@ function addRandomGreeting() {
  */
 function addRandomFact() {
   const facts =
-      ['I have a sister also going to MIT', 'I have lived in 7 cities and 3 continents','I am a massive Star Wars fan','My favorite food is pizza! Yum'];
+      ['I have a sister also going to MIT', 'I have lived in 7 cities and 3 countries','I am a massive Star Wars fan','My favorite food is pizza! Yum'];
   // Pick a random fact.
   const fact = facts[Math.floor(Math.random() * facts.length)];
 
