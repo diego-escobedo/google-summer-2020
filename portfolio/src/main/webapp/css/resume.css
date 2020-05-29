@@ -91,7 +91,7 @@ section{
 }
 
 ul.job-description li:before{
-  content: "✔";
+  content: "►";
   padding-right: 0.5em;
   color: #509e98;
 }
@@ -118,6 +118,10 @@ ul.job-description li:before{
 }
 
 .job-title strong {
+    font-size: 22px;
+}
+
+.school strong {
     font-size: 22px;
 }
 
