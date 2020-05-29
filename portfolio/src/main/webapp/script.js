@@ -40,3 +40,13 @@ function addRandomFact() {
   const factContainer = document.getElementById('fact-container');
   factContainer.innerText = fact;
 }
+
+function toggle(content, project) {
+  var find = content.concat("_",project);
+  var x = document.getElementById(find);
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
