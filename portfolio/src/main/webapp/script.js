@@ -56,3 +56,9 @@ function toggle(project) {
     x.style.display = "none";
   }
 }
+
+function getData() {
+  fetch('/data').then(response => response.text()).then((data) => {
+    document.getElementById('data-reader').innerHTML = data;
+  });
+}
