@@ -11,7 +11,7 @@
     <script src="https://kit.fontawesome.com/4a3abdf238.js" crossorigin="anonymous"></script>
     <script src="script.js"></script>
   </head>
-  <body class="wrapper">
+  <body class="wrapper" onload="getComments()">
     <header class="page-header">
         <h1>diego.io</h1>
         <input type="checkbox" id="nav-toggle" class="nav-toggle">
@@ -28,13 +28,30 @@
     <div class="page-main">
         <div class="content-block">
             <h1>My Portfolio</h1>
-            <button onclick="getComments();">Get Comments</button>
-            <div id="comment-display"></div>
             <p>Hi! I'm Diego Escobedo, and I worked as a STEP Intern at Google during Summer 2020. This is my portfolio.</p>
             <p>First, let me tell you a little bit about myself! I am a sophomore at MIT, studying Computer Science & Economics. I am a huge fan of board games, running, and hiking.</p>
             <p>Click here to get a random fact about me:</p>
             <button onclick="addRandomFact()">Generate Fact:</button>
             <div id="fact-container"></div>
+        </div>
+        <br/><br/>
+        <ul id="comment-section"></ul>
+        <div id="form-div" class="content-block">
+            <form action="/data" method="POST">
+                <p>
+                    <label for="a">Name:</label>
+                    <textarea name="name"></textarea>
+                </p>
+                <p>
+                    <label for="a">Comment:</label>
+                    <textarea name="comment"></textarea>
+                </p>
+                <p>
+                    <label for="a">Rate the website from 1-10:</label>
+                    <input type="number" name="rating">
+                </p>
+                <input type="submit" />
+            </form>
         </div>
     </div>
     <footer class="page-footer">
