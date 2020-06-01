@@ -56,9 +56,38 @@ function toggle(project) {
     x.style.display = "none";
   }
 }
-
+/* Deprecated method, may use later
 function getData() {
   fetch('/data').then(response => response.text()).then((data) => {
     document.getElementById('data-reader').innerHTML = data;
   });
+}*/
+
+function getComments() {
+  fetch('/data').then(response => response.text()).then((data) => {
+    document.getElementById('comment-display').innerHTML = data;
+  });
+}
+
+function getComments() {
+  fetch('/data').then(response => response.json()).then((comments) => {
+    // comments is an object, not a string, so we have to
+    // reference its fields to create HTML content
+
+    const commentsListElement = document.getElementById('comment-display');
+    commentsListElement.innerHTML = '';
+    commentsListElement.appendChild(
+        createListElement(comments[0]));
+    commentsListElement.appendChild(
+        createListElement(comments[1]));
+    commentsListElement.appendChild(
+        createListElement(comments[2]));
+  });
+}
+
+/** Creates an <li> element containing text. */
+function createListElement(text) {
+  const liElement = document.createElement('li');
+  liElement.innerText = text;
+  return liElement;
 }
