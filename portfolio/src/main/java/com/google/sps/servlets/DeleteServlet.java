@@ -27,7 +27,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.*;
+import java.lang.Integer;
 import com.google.gson.Gson;
 
 @WebServlet("/delete-data")
