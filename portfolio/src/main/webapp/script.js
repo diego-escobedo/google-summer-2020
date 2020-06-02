@@ -60,7 +60,13 @@ function toggle(project) {
 function getComments() {
   var maxcom = document.getElementById("max-comments").value;
   var url = "/data?max-comments=".concat(maxcom);
-  fetch(url).then(response => response.json()).then((comments) => {
+  fetch(url).then(response => response.json()).then((comments) => console.log(comments))
+  
+  
+  };
+  
+  /*response.json())
+    .then((comments) => {
     // comments is an object, not a string, so we have to
     // reference its fields to create HTML content
 
@@ -71,7 +77,7 @@ function getComments() {
         createListElement(comments[i]));
     }
   });
-}
+}/*
 
 /** Creates an <li> element containing text. */
 function createListElement(text) {
