@@ -56,3 +56,31 @@ function toggle(project) {
     x.style.display = "none";
   }
 }
+
+function getComments() {
+  var maxcom = document.getElementById("max-comments").value;
+  var url = "/data?max-comments=".concat(maxcom);
+  fetch(url).then(response => response.json()).then((comments) => {
+    // comments is an object, not a string, so we have to
+    // reference its fields to create HTML content
+
+    const commentsListElement = document.getElementById('comment-section');
+    commentsListElement.innerHTML = '';
+    for (i = 0; i < comments.length; i++) {
+        commentsListElement.appendChild(
+        createListElement(comments[i]));
+    }
+  });
+}
+
+/** Creates an <li> element containing text. */
+function createListElement(text) {
+  const liElement = document.createElement('li');
+  liElement.innerText = text;
+  return liElement;
+}
+
+function deleteComments() {
+    const request = new Request('/delete-data');
+    fetch(request).then(getComments());
+}
