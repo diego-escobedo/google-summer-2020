@@ -1,17 +1,30 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway');
+:root {
+    --navbackground: rgba(135,206,235,.85);
+}
+html {
+    height: 100%;
+}
 
-form  { display: table;      }
-form p     { display: table-row; padding-bottom: .5em;}
+*,*::before, *::after{
+    box-sizing: border-box;
+}
+
+h1,h3 {
+  text-transform: uppercase;
+}
+
+h3, h4 {
+  font-weight: bold;
+}
+
+form { display: table;}
+form p { display: table-row; padding-bottom: .5em;}
 form label { display: table-cell; padding-right:1em; vertical-align: middle}
 form input { display: table-cell; height: 100%;}
-form textarea, form input {
-    vertical-align: middle;
-}
-
-#form-div {
-    display: flex;
-    justify-content: flex-start;
-}
+form textarea, form input {vertical-align: middle;}
+#form-div {display: flex;justify-content: flex-start;}
+#comment-dection {list-style: none;}
 
 body {
   font-family: 'Raleway';
@@ -20,38 +33,17 @@ body {
   --main-white-color: white;
   --main-purple-color: #9e89b8;
   margin: 0;
-}
-
-body,html {
-    height: 100%;
-}
-
-:root {
-    --navbackground: rgba(135,206,235,.85);
-}
-
-*,*::before, *::after{
-    box-sizing: border-box;
-}
-
-.wrapper {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-}
-
-.wrapper > * {
-  padding: 20px;
+  height: 100%;
 }
 
 .page-main {
   justify-content: flex-start;
   display: flex;
-  flex: 1;
   flex-direction: column;
-  min-height: 350px;
   position: relative;
-
+  flex: 1;
 }
 
 @media screen and (min-width: 768px) {
@@ -199,37 +191,23 @@ nav a:hover {
   align-items: center;
   background:rgba(35,43,43,.3);
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content:center;
-  width:100%;
+  position: relative;
+  
 }
 
 .page-footer ul {
-  align-items: center;
-  display: flex;
-  justify-content:center;
+  display: inline-flex;
   list-style-type: none;
-  margin-bottom: 5px;
 }
 
 .page-footer li {
-  display: inline-block;
-  flex: 0 1 auto;
   list-style-type: none;
 }
 
-@media screen and (min-width: 550px) {
-  .page-footer {
-    align-items: center;
-    flex-direction: row;
-    justify-content: center;
-  }
-
-  .page-footer ul {
-    align-items: center;
-    justify-content:center;
-    margin: auto auto 0 auto;
-  }
+.page-footer i {
+    padding: 5px 20px 5px 20px;
 }
 
 .icon {
@@ -240,18 +218,6 @@ nav a:hover {
 .icon:hover{
     color: whitesmoke;
     transition: .45s;
-}
-
-h1 {
-  text-transform: uppercase;
-}
-
-h3 {
-  text-transform: uppercase;
-}
-
-h3, h4 {
-  font-weight: bold;
 }
 
 /* footer styles end here */

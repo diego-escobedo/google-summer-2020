@@ -14,6 +14,13 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.gson.Gson;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -44,11 +51,28 @@ public class DataServlet extends HttpServlet {
   //get method
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String json = convertToJson(commentList);
+    Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
 
-    // Send the JSON as the response
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
+
+    int maxcomments = Integer.parseInt(getParameter(request,"max-comments", "5"));
+    ArrayList<String> comments=new ArrayList<String>();
+    int count = 0;
+    for (Entity entity : results.asIterable()) {
+      if (count == maxcomments) {break;}
+      String name = (String) entity.getProperty("name");
+      String comment = (String) entity.getProperty("comment");
+      //int rating = Integer.parseInt(entity.getProperty("rating"));
+      count++;
+      // Task task = new Task(id, title, timestamp); once we create custom data struct
+      comments.add(comment);
+    }
+
+    Gson gson = new Gson();
+
     response.setContentType("application/json;");
-    response.getWriter().println(json);
+    response.getWriter().println(gson.toJson(comments));
   }
   //post method
   @Override
@@ -57,7 +81,17 @@ public class DataServlet extends HttpServlet {
     String name = request.getParameter("name");
     String comment = request.getParameter("comment");
     int rating = Integer.parseInt(request.getParameter("rating"));
+    long timestamp = System.currentTimeMillis();
     
+    Entity commentEnt = new Entity("Comment");
+    commentEnt.setProperty("name", name);
+    commentEnt.setProperty("comment", comment);
+    commentEnt.setProperty("rating", rating);
+    commentEnt.setProperty("timestamp", timestamp);
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(commentEnt);
+
     response.sendRedirect("/index.html");
      
     commentList.add(comment);//added comment to list
