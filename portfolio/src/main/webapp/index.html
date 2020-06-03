@@ -35,54 +35,69 @@
             <div id="fact-container"></div>
         </div>
         <br/>
-        <h3>Comments:</h3>
-        <div id="form-div" class="content-block">
-            
-            <form action="/data" method="POST">
-                <p>
-                    <label for="name">Name:</label>
-                    <textarea name="name" id="name"></textarea>
-                </p>
-                <p>
-                    <label for="comment">Comment:</label>
-                    <textarea name="comment" id="comment"></textarea>
-                </p>
-                <p>
-                    <label for="rating">Rate the website from 1-10:</label>
-                    <select name="rating" id="rating"> 
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
+
+        <div class = "comments-section">
+
+            <h3>Comments:</h3>
+
+            <div id="form-div comments-stats-div" class="content-block">
+                <ul id="comment-stats"></ul>
+            </div>
+
+            <div id="form-div max-comments-div" class="content-block">
+                <form>
+                    <p>
+                    <label for="max-comments">Max Comments:</label>
+                    <select onchange="getComments()" name="max-comments" id="max-comments"> 
+                            <option value="3">3</option>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="30">30</option>
+                            <option value="9999">All</option>
                     </select>
-                </p>          
-                <input type="submit" />
-            </form>
-        </div>
-        <div id="form-div" class="content-block">
-            <form>
-                <p>
-                <label for="max-comments">Max Comments:</label>
-                <select onchange="getComments()" name="max-comments" id="max-comments"> 
-                        <option value="3">3</option>
-                        <option value="5">5</option>
-                        <option value="10">10</option>
-                        <option value="30">30</option>
-                </select>
-                </p>
-            </form>
-        </div>
-        <ul id="comment-section"></ul>
-        <div id="form-div" class="content-block" style="padding-bottom:1.5em">
-            <form action="\delete-data" method="POST">
-                <button>Delete all Comments</button>
-            </form>
+                    </p>
+                </form>
+            </div>
+
+            <div id="form-div comments-display-div" class="content-block">
+                <ul id="comment-section"></ul>
+            </div>
+
+            <div id="form-div comments-entry-div" class="content-block">
+                <form action="/data" method="POST">
+                    <p>
+                        <label for="name">Name:</label>
+                        <textarea name="name" id="name"></textarea>
+                    </p>
+                    <p>
+                        <label for="comment">Comment:</label>
+                        <textarea name="comment" id="comment"></textarea>
+                    </p>
+                    <p>
+                        <label for="rating">Rate the website from 1-10:</label>
+                        <select name="rating" id="rating"> 
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option selected value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </p>          
+                    <input type="submit" />
+                </form>
+            </div>
+        
+        
+            <div id="form-div delete-all-comments-div" class="content-block" style="padding-bottom:1.5em">
+                <form action="\delete-data" method="POST">
+                    <button>Delete all Comments</button>
+                </form>
+            </div>
         </div>
     </div>
     <footer class="page-footer">

@@ -58,32 +58,79 @@ function toggle(project) {
 }
 
 function getComments() {
-  var maxcom = document.getElementById("max-comments").value;
-  var url = "/data?max-comments=".concat(maxcom);
-  fetch(url).then(response => response.json()).then((comments) => console.log(comments))
-  
-  
-  };
-  
-  /*response.json())
-    .then((comments) => {
-    // comments is an object, not a string, so we have to
-    // reference its fields to create HTML content
+    var maxcom = document.getElementById("max-comments").value;
+    var url = "/data?max-comments=".concat(maxcom);
+    fetch(url).then(response => response.json()).then((comments) => {
+        // comments is an object, not a string, so we have to
+        // reference its fields to create HTML content
+
+    var stats = comments[0]
+    const commentsStatsElement = document.getElementById('comment-stats');
+    commentsStatsElement.innerHTML = '';
+    commentsStatsElement.appendChild(
+        writeStats(stats["total-comments"], "Total Comments"));
+    commentsStatsElement.appendChild(
+        writeStats(stats["avg-rating"], "Average Rating"));
+    
 
     const commentsListElement = document.getElementById('comment-section');
     commentsListElement.innerHTML = '';
-    for (i = 0; i < comments.length; i++) {
+    for (i = 1; i < comments.length; i++) {
         commentsListElement.appendChild(
         createListElement(comments[i]));
     }
   });
-}/*
+}
 
-/** Creates an <li> element containing text. */
-function createListElement(text) {
+function writeStats(stat, name) {
+    const liElement = document.createElement('li');
+    liElement.innerHTML = "<p>" + name + ": " + stat + " </p>";
+    return liElement;
+}
+
+/* Creates an <li> element containing text. */
+function createListElement(commentObj) {
+  var name = commentObj["name"];
+  var comment = commentObj["comment"];
+  var rating = commentObj["rating"];
+  var id = commentObj["id"];
+  var date = timeConverter(commentObj["timestamp"]);
+
   const liElement = document.createElement('li');
-  liElement.innerText = text;
+  liElement.innerHTML = liHTML(name,comment,rating,date, id);
   return liElement;
+}
+
+function liHTML(name,comment,rating, date, id) {
+  var html = '<footer class="post-info">' +
+      '<div id="horiz-flex-div" class="separated">' +  
+        '<abbr class="date-published" title="' + date + '">' + date + '</abbr>' +
+        '<form id="delete-comm-btn-wrapper" action="/delete-comment?id=' + id + '" method="POST">' + 
+            '<button type="submit" id="inv-btn" >' +
+                '<i class="far fa-trash-alt"></i>' +
+            '</button>' + 
+        '</form>' +
+      '</div>' +
+      '<div id="horiz-flex-div">' + 
+        '<address class="author"> <b>' + 'By ' + name + '</b></address>' +
+        '<address class="rtg">' + 'Rating: ' + rating + '</address>' +
+      '</div>' +
+      '</footer>' +
+      '<div class="entry-content">' + '<p>' + comment + '</p>' + '</div>';
+
+  return html;
+}
+
+function timeConverter(UNIX_timestamp){
+  var a = new Date(UNIX_timestamp);
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var year = a.getFullYear();
+  var month = months[a.getMonth()];
+  var date = a.getDate();
+  var hour = a.getHours();
+  var min = a.getMinutes() < 10 ? '0' + a.getMinutes() : a.getMinutes();
+  var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min;
+  return time;
 }
 
 function deleteComments() {

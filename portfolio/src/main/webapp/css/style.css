@@ -221,3 +221,49 @@ nav a:hover {
 }
 
 /* footer styles end here */
+
+/* comment styles start here */
+#comments-display-div {
+    max-width : 700px;
+    word-wrap: break-word;
+    display: flex;  
+    flex-wrap: wrap;
+}
+
+#comment-section {
+    list-style-type: none;
+    width: 500px;
+    display:flex;
+    flex-direction:column;
+}
+
+#comment-section li {
+    border: 3px groove orange;   
+    overflow-wrap: break-word;
+    padding: 5px;
+    margin-bottom: 10px;
+    display:flex;
+    flex-direction:column;
+}
+
+.post-info {
+    display:flex;
+    flex-direction:column;
+}
+
+#horiz-flex-div {
+    display:flex;
+    flex-direction:row;
+}
+
+.separated {justify-content: space-between}
+
+#inv-btn {
+    background: transparent;
+    border: none !important;
+}
+
+.author {padding-right:10px;}
+.rtg {padding-left:10px;}
+
+#delete-comm-btn-wrapper {margin:0;}

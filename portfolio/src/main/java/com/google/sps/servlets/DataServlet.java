@@ -20,36 +20,39 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.datastore.FetchOptions;
+import com.google.sps.servlets.Comment;
 import com.google.gson.Gson;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.lang.Integer;
 import java.util.ArrayList;
 import java.util.List;
-import java.lang.Long;
 import com.google.gson.Gson;
-import com.google.appengine.api.datastore.FetchOptions;
-import com.google.sps.servlets.Comment;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
   //class methhods: convert to JSon and get parameter
-  private String convertToJson(ArrayList<String> commentList) {
+  private String convertToJsonStrArrayList(ArrayList<String> commentList) {
     Gson gson = new Gson();
     return gson.toJson(commentList);
   }
 
-  private String convertToJsonCommentList(ArrayList<Comment> commentList) {
+  private String convertToJson(ArrayList<String> stats, ArrayList<Comment> commentList) {
     String ret = "[";
+    ret += "{";
+    ret += "\"total-comments\": " + stats.get(0) + ",";
+    ret += "\"avg-rating\": " + stats.get(1);
+    ret += "},";
     for (Comment c : commentList) {
         ret += c.convertToJson();
         ret += ",";
     }
+    ret = ret.substring(0, ret.length() - 1);
     ret += "]";
     return ret;
   }
@@ -68,25 +71,36 @@ public class DataServlet extends HttpServlet {
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery r = datastore.prepare(query);
+    List<Entity> results = r.asList(FetchOptions.Builder.withDefaults());
 
     int max_comments = Integer.parseInt(getParameter(request,"max-comments", "5"));
-    ArrayList<Comment> comments = new ArrayList<Comment>();
-
-    List<Entity> results = r.asList(FetchOptions.Builder.withDefaults());
+    ArrayList<Comment> comments = new ArrayList<Comment>();  
+    
     for (int i = 0; i < Math.min(max_comments, results.size()); i++) {
       Entity entity = results.get(i);
       String name = (String) entity.getProperty("name");
       String comm = (String) entity.getProperty("comment");
-      int rating = (int) entity.getProperty("rating");
-      String key = (String) entity.getProperty("Key"); 
+      int rating = ((Long)entity.getProperty("rating")).intValue();
+      long id = (long) entity.getKey().getId();
       long ts = (long) entity.getProperty("timestamp");
 
-      Comment c = new Comment(name, comm, rating, key, ts);
+      Comment c = new Comment(name, comm, rating, id, ts);
       comments.add(c);
     }
 
-    response.setContentType("application/json;");
-    response.getWriter().println(convertToJsonCommentList(comments));
+    double cumsum = 0;
+    for (int i = 0; i < results.size(); i++) {
+        Entity entity = results.get(i);
+        int rating = ((Long)entity.getProperty("rating")).intValue();
+        cumsum +=  rating;
+    }
+    double avg = cumsum / (double) results.size();
+    ArrayList<String> stats = new ArrayList<String>();
+    stats.add(String.valueOf(results.size()));
+    stats.add(String.valueOf(avg));
+
+    response.setContentType("application/json");
+    response.getWriter().println(convertToJson(stats,comments));
   }
   //post method
   @Override
