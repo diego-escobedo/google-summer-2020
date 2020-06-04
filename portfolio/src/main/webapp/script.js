@@ -57,9 +57,11 @@ function toggle(project) {
   }
 }
 
+
 function getComments() {
-    var maxcom = document.getElementById("max-comments").value;
-    var url = "/data?max-comments=".concat(maxcom);
+    const maxcom = document.getElementById("max-comments-select").value;
+    const sort = document.getElementById("sort-select").value;
+    var url = "/data?max-comments=".concat(maxcom,"&sort=",sort);
     fetch(url).then(response => response.json()).then((comments) => {
         // comments is an object, not a string, so we have to
         // reference its fields to create HTML content
@@ -71,9 +73,14 @@ function getComments() {
         writeStats(stats["total-comments"], "Total Comments"));
     commentsStatsElement.appendChild(
         writeStats(stats["avg-rating"], "Average Rating"));
-    
+    commentsStatsElement.appendChild(
+        writeStats(stats["nps"], "Net Promoter Score"));
 
-    const commentsListElement = document.getElementById('comment-section');
+    const nps_icon = document.getElementById('nps-icon');
+    if (stats["nps"] > 30) {nps_icon.style.color = "rgba(118,186,90,.85)"}
+    if (stats["nps"] < 0) {nps_icon.style.color = "rgba(220,50,30,.85)"}
+    
+    const commentsListElement = document.getElementById('comments-ul');
     commentsListElement.innerHTML = '';
     for (i = 1; i < comments.length; i++) {
         commentsListElement.appendChild(
@@ -82,9 +89,22 @@ function getComments() {
   });
 }
 
-function writeStats(stat, name) {
+function writeStats(stat, name) { 
     const liElement = document.createElement('li');
-    liElement.innerHTML = "<p>" + name + ": " + stat + " </p>";
+    liElement.setAttribute("id", "stat");
+    if (name === "Total Comments") {
+            liElement.innerHTML = '<i class="fas fa-comments fa-2x" id="comments-icon"></i>'  + 
+                                '<p>' + name + ": " + stat + '</p>';
+    } 
+    if (name === "Average Rating") {
+            liElement.innerHTML = '<i class="fas fa-star-half-alt fa-2x" id="rtg-icon"></i>'  + 
+                                '<p>' + name + ": " + stat + '</p>';
+    } 
+    if (name === "Net Promoter Score") {
+            liElement.innerHTML = '<i class="fas fa-arrow-circle-up fa-2x" id="nps-icon"></i>'  + 
+                                '<p>' + name + ": " + stat + '</p>';
+    } 
+    
     return liElement;
 }
 
@@ -103,22 +123,26 @@ function createListElement(commentObj) {
 
 function liHTML(name,comment,rating, date, id) {
   var html = '<footer class="post-info">' +
-      '<div id="horiz-flex-div" class="separated">' +  
-        '<abbr class="date-published" title="' + date + '">' + date + '</abbr>' +
-        '<form id="delete-comm-btn-wrapper" action="/delete-comment?id=' + id + '" method="POST">' + 
-            '<button type="submit" id="inv-btn" >' +
-                '<i class="far fa-trash-alt"></i>' +
-            '</button>' + 
-        '</form>' +
+      '<div class="separated horiz-flex-div" >' +  
+        '<abbr title="' + date + '">' + date + '</abbr>' +
+        '<button onClick="postDeleteComment(' + id + ');" class="inv-btn">' +
+            '<i class="far fa-trash-alt"></i>' +
+        '</button>' + 
       '</div>' +
-      '<div id="horiz-flex-div">' + 
+      '<div class="horiz-flex-div">' + 
         '<address class="author"> <b>' + 'By ' + name + '</b></address>' +
         '<address class="rtg">' + 'Rating: ' + rating + '</address>' +
       '</div>' +
       '</footer>' +
-      '<div class="entry-content">' + '<p>' + comment + '</p>' + '</div>';
+      '<div class="comment-text-div">' + '<p>' + comment + '</p>' + '</div>';
 
   return html;
+}
+
+function postDeleteComment(id) {
+    var params = new URLSearchParams();
+    params.append('id', id);
+    let response = fetch('/delete-comment', {method: 'POST', body: params}).then(getComments());
 }
 
 function timeConverter(UNIX_timestamp){

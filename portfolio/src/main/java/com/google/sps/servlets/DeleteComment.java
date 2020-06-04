@@ -55,7 +55,6 @@ public class DeleteComment extends HttpServlet {
         } 
     }
     
-    response.sendRedirect("/index.html");
   }
 }
 

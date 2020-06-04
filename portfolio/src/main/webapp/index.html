@@ -26,7 +26,7 @@
         <label for="nav-toggle" class="nav-toggle-label"><i class="fas fa-bars"></i></label>
     </header>
     <div class="page-main">
-        <div class="content-block">
+        <div>
             <h1>My Portfolio</h1>
             <p>Hi! I'm Diego Escobedo, and I worked as a STEP Intern at Google during Summer 2020. This is my portfolio.</p>
             <p>First, let me tell you a little bit about myself! I am a sophomore at MIT, studying Computer Science & Economics. I am a huge fan of board games, running, and hiking.</p>
@@ -36,34 +36,45 @@
         </div>
         <br/>
 
-        <div class = "comments-section">
+        <div class = "comments-section-wrapper">
 
             <h3>Comments:</h3>
 
-            <div id="form-div comments-stats-div" class="content-block">
+            <div id="comments-stats-div" class="content-block">
                 <ul id="comment-stats"></ul>
             </div>
 
-            <div id="form-div max-comments-div" class="content-block">
-                <form>
-                    <p>
+            <div id="preferences-input-div" class="horiz-flex-div">
+                <form class="horiz-flex-div">
                     <label for="max-comments">Max Comments:</label>
-                    <select onchange="getComments()" name="max-comments" id="max-comments"> 
+                    <select onchange="getComments();" name="max-comments" id="max-comments-select"> 
                             <option value="3">3</option>
                             <option value="5">5</option>
                             <option value="10">10</option>
                             <option value="30">30</option>
-                            <option value="9999">All</option>
                     </select>
-                    </p>
+                </form>
+
+                <form class="horiz-flex-div" style="padding-left:30px;">
+                    <label for="sort-select">Sort By:</label>
+                    <select onChange="getComments();" name="sort-select" id="sort-select"> 
+                            <option selected value="ts_desc"> Newest First</option>
+                            <option value="ts_asc">Oldest First</option>
+                            <option value="rtg_desc">Highest Rating</option>
+                            <option value="rtg_asc">Lowest Rating</option>
+                            <option value="comm_len_desc">Longest Comment</option>
+                            <option value="comm_len_asc">Shortest Comment</option>
+                            <option value="author_asc">Author Name: A-Z</option>
+                            <option value="author_desc">Author Name: Z-A</option>
+                    </select>
                 </form>
             </div>
 
-            <div id="form-div comments-display-div" class="content-block">
-                <ul id="comment-section"></ul>
+            <div id="comments-display-div">
+                <ul id="comments-ul"></ul>
             </div>
 
-            <div id="form-div comments-entry-div" class="content-block">
+            <div id="write-a-comment-div">
                 <form action="/data" method="POST">
                     <p>
                         <label for="name">Name:</label>
@@ -80,10 +91,10 @@
                             <option value="2">2</option>
                             <option value="3">3</option>
                             <option value="4">4</option>
-                            <option selected value="5">5</option>
+                            <option value="5">5</option>
                             <option value="6">6</option>
                             <option value="7">7</option>
-                            <option value="8">8</option>
+                            <option selected value="8">8</option>
                             <option value="9">9</option>
                             <option value="10">10</option>
                         </select>
@@ -92,8 +103,7 @@
                 </form>
             </div>
         
-        
-            <div id="form-div delete-all-comments-div" class="content-block" style="padding-bottom:1.5em">
+            <div id="delete-all-comments-div" style="padding-bottom:1.5em">
                 <form action="\delete-data" method="POST">
                     <button>Delete all Comments</button>
                 </form>
