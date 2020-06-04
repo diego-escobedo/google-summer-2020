@@ -44,12 +44,42 @@
                 <ul id="comment-stats"></ul>
             </div>
 
+            <div id="write-a-comment-div">
+                <form action="/data" method="POST">
+                    <div class="horiz-flex-div">
+                        <div class="horiz-flex-div">
+                            <input type="text" placeholder="Name" name="name" id="name" autocomplete="off"></textarea>
+                        </div>
+
+                        <div class="horiz-flex-div">
+                            <select name="rating" id="rating"> 
+                                <option hidden selected value="8"> Site Rating</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
+                        </div>        
+                    </div>
+                    <p>
+                        <input autocomplete="off" type="text" placeholder="Enter your comment here..." name="comment" id="comment"></textarea>
+                    </p>    
+                    <input type="submit" value="Post"/>
+                </form>
+            </div>
+
             <div id="preferences-input-div" class="horiz-flex-div">
                 <form class="horiz-flex-div">
-                    <label for="max-comments">Max Comments:</label>
+                    <label for="max-comments">Comments Displayed:</label>
                     <select onchange="getComments();" name="max-comments" id="max-comments-select"> 
                             <option value="3">3</option>
-                            <option value="5">5</option>
+                            <option selected value="5">5</option>
                             <option value="10">10</option>
                             <option value="30">30</option>
                     </select>
@@ -57,15 +87,15 @@
 
                 <form class="horiz-flex-div" style="padding-left:30px;">
                     <label for="sort-select">Sort By:</label>
-                    <select onChange="getComments();" name="sort-select" id="sort-select"> 
-                            <option selected value="ts_desc"> Newest First</option>
+                    <select onChange="getComments();" name="sort-select" id="sort-select">
+                            <option value="ts_desc"> Newest First</option>
                             <option value="ts_asc">Oldest First</option>
                             <option value="rtg_desc">Highest Rating</option>
                             <option value="rtg_asc">Lowest Rating</option>
                             <option value="comm_len_desc">Longest Comment</option>
                             <option value="comm_len_asc">Shortest Comment</option>
-                            <option value="author_asc">Author Name: A-Z</option>
-                            <option value="author_desc">Author Name: Z-A</option>
+                            <option value="author_asc">Author: A-Z</option>
+                            <option value="author_desc">Author: Z-A</option>
                     </select>
                 </form>
             </div>
@@ -74,35 +104,8 @@
                 <ul id="comments-ul"></ul>
             </div>
 
-            <div id="write-a-comment-div">
-                <form action="/data" method="POST">
-                    <p>
-                        <label for="name">Name:</label>
-                        <textarea name="name" id="name"></textarea>
-                    </p>
-                    <p>
-                        <label for="comment">Comment:</label>
-                        <textarea name="comment" id="comment"></textarea>
-                    </p>
-                    <p>
-                        <label for="rating">Rate the website from 1-10:</label>
-                        <select name="rating" id="rating"> 
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option selected value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                        </select>
-                    </p>          
-                    <input type="submit" />
-                </form>
-            </div>
-        
+            
+
             <div id="delete-all-comments-div" style="padding-bottom:1.5em">
                 <form action="\delete-data" method="POST">
                     <button>Delete all Comments</button>

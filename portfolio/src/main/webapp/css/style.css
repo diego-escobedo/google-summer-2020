@@ -258,16 +258,15 @@ nav a:hover {
 
 .separated {justify-content: space-between}
 
-.inv-btn {
+.inv-btn, select, input:focus {
     background: transparent;
     border: none !important;
+    outline:0;
 }
 
 .author {padding-right:10px;}
 .rtg {padding-left:10px;}
-
 #delete-comm-btn-wrapper {margin:0;}
-
 #comment-stats {
     list-style-type: none;
     display: flex;
@@ -286,3 +285,17 @@ nav a:hover {
 #comments-icon {color:rgba(249,129,90,.85);}
 #rtg-icon {color:rgba(249,228,90,.85);}
 #nps-icon {color:rgba(135,206,235,.85);}
+#name {resize:none;}
+
+input[type=submit] {
+    background-color: rgba(55,146,203,.20);
+    border-radius:5px;
+    border:none;
+}
+
+input[type=text] {
+    border:none;
+    opacity: 1;
+    position: relative;
+    text-decoration:none;
+} 
