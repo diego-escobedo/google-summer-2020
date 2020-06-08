@@ -23,7 +23,7 @@
                 <li><a href="resume.html">Resume</a></li>
             </ul>
         </nav>
-        <label for="nav-toggle" class="nav-toggle-label"><i class="fas fa-bars"></i></label>
+        <label for="nav-toggle" class=  "nav-toggle-label"><i class="fas fa-bars"></i></label>
     </header>
     <div class="page-main">
         <div>
@@ -52,7 +52,7 @@
                         </div>
 
                         <div class="horiz-flex-div">
-                            <select name="rating" id="rating"> 
+                            <select name="rating" id="rating">
                                 <option hidden selected value="8"> Site Rating</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -65,11 +65,11 @@
                                 <option value="9">9</option>
                                 <option value="10">10</option>
                             </select>
-                        </div>        
+                        </div>
                     </div>
                     <p>
                         <input autocomplete="off" type="text" placeholder="Enter your comment here..." name="comment" id="comment"></textarea>
-                    </p>    
+                    </p>
                     <input type="submit" value="Post"/>
                 </form>
             </div>
@@ -77,7 +77,7 @@
             <div id="preferences-input-div" class="horiz-flex-div">
                 <form class="horiz-flex-div">
                     <label for="max-comments">Comments Displayed:</label>
-                    <select onchange="getComments();" name="max-comments" id="max-comments-select"> 
+                    <select onchange="getComments();" name="max-comments" id="max-comments-select">
                             <option value="3">3</option>
                             <option selected value="5">5</option>
                             <option value="10">10</option>
@@ -92,8 +92,8 @@
                             <option value="ts_asc">Oldest First</option>
                             <option value="rtg_desc">Highest Rating</option>
                             <option value="rtg_asc">Lowest Rating</option>
-                            <option value="comm_len_desc">Longest Comment</option>
-                            <option value="comm_len_asc">Shortest Comment</option>
+                            <option value="commlen_desc">Longest Comment</option>
+                            <option value="commlen_asc">Shortest Comment</option>
                             <option value="author_asc">Author: A-Z</option>
                             <option value="author_desc">Author: Z-A</option>
                     </select>
@@ -103,8 +103,6 @@
             <div id="comments-display-div">
                 <ul id="comments-ul"></ul>
             </div>
-
-            
 
             <div id="delete-all-comments-div" style="padding-bottom:1.5em">
                 <form action="\delete-data" method="POST">

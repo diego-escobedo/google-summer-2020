@@ -1,33 +1,29 @@
 package com.google.sps.servlets;
 
 public class Return {
-    public ArrayList<Comment> comments = new ArrayList<Comment>();
-    public int totalComments = 0;
-    public double avgRating = 0;
-    public double id = 0; 
+    private ArrayList<Comment> comments = new ArrayList<Comment>();
+    private int totalComments = 0;
+    private double avgRating = 0;
+    private double nps = 0;
 
-    public Comment(ArrayList<Comment> comments, int totalComments,double avgRating) {
+    public Return(ArrayList<Comment> comments, int totalComments,double avgRating, double nps) {
     // the s stands for starter
-    this.name = name;
-    this.comm = comm;
-    this.rating = rating;
-    this.id = id; 
-    this.ts = ts;
+    this.coments = comments;
+    this.totalComments = totalComments;
+    this.avgRating = avgRating;
+    this.nps = nps;
   }
 
-    public String getName() {
-    return name;
+    public ArrayList<Comment> getComments() {
+        return comments;
     }
-    public String getComment() {
-        return comm;
+    public int getTotalComments() {
+        return totalComments;
     }
-    public int getRating() {
-        return rating;
+    public double getAvgRating() {
+        return avgRating;
     }
-    public long getID() {
-        return id;
-    }
-    public long getTimestamp() {
-        return ts;
+    public double getNps() {
+        return nps;
     }
 }
