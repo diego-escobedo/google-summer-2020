@@ -30,6 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.text.DecimalFormat;
 import com.google.gson.Gson;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
@@ -51,13 +52,13 @@ public class DataServlet extends HttpServlet {
   }
 
   private Query getQuerySort(String sortMethod) {
-    SortDirection sortDir = sortMethod.endswith("asc") ? SortDirection.ASCENDING : SortDirection.DESCENDING;
+    SortDirection sortDir = sortMethod.endsWith("asc") ? SortDirection.ASCENDING : SortDirection.DESCENDING;
     String sortCriteria = "";
 
-    if (sortMethod.beginsWith("ts") {sortCriteria = "timestamp";}
-    else if (sortMethod.beginsWith("rtg") {sortCriteria = "rating";}
-    else if (sortMethod.beginsWith("authot") {sortCriteria = "name";}
-    else if (sortMethod.beginsWith("commlen") {sortCriteria = "comment_length";}
+    if (sortMethod.startsWith("ts")) {sortCriteria = "timestamp";}
+    else if (sortMethod.startsWith("rtg")) {sortCriteria = "rating";}
+    else if (sortMethod.startsWith("author")) {sortCriteria = "name";}
+    else if (sortMethod.startsWith("commlen")) {sortCriteria = "comment_length";}
 
     return new Query("Comment").addSort(sortCriteria,sortDir);
   }
@@ -100,7 +101,7 @@ public class DataServlet extends HttpServlet {
     double avg = cumsum / (double) results.size();
 
     DecimalFormat roundOne = new DecimalFormat("#.#");
-    DecimalFormat roundZero = new DecimalFormat("#.");
+    DecimalFormat roundZero = new DecimalFormat("#");
 
     Return ret = new Return(comments, results.size(), roundOne.format(avg), roundZero.format(nps));
 

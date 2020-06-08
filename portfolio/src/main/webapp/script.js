@@ -62,27 +62,25 @@ function getComments() {
     const maxcom = document.getElementById("max-comments-select").value;
     const sort = document.getElementById("sort-select").value;
     var url = "/data?max-comments=".concat(maxcom,"&sort=",sort);
-    fetch(url).then(response => response.json()).then((comments) => {
-        // comments is an object, not a string, so we have to
-        // reference its fields to create HTML content
+    fetch(url).then(response => response.json()).then((returnObj) => {
 
-    var stats = comments[0]
+    var comments = returnObj["comments"]
     const commentsStatsElement = document.getElementById('comment-stats');
     commentsStatsElement.innerHTML = '';
     commentsStatsElement.appendChild(
-        writeStats(stats["total-comments"], "Total Comments"));
+        writeStats(returnObj["totalComments"], "Total Comments"));
     commentsStatsElement.appendChild(
-        writeStats(stats["avg-rating"], "Average Rating"));
+        writeStats(returnObj["avgRating"], "Average Rating"));
     commentsStatsElement.appendChild(
-        writeStats(stats["nps"], "Net Promoter Score"));
+        writeStats(returnObj["nps"], "Net Promoter Score"));
 
     const nps_icon = document.getElementById('nps-icon');
-    if (stats["nps"] > 30) {nps_icon.style.color = "rgba(118,186,90,.85)"}
-    if (stats["nps"] < 0) {nps_icon.style.color = "rgba(220,50,30,.85)"}
+    if (returnObj["nps"] > 30) {nps_icon.style.color = "rgba(118,186,90,.85)"}
+    if (returnObj["nps"] < 0) {nps_icon.style.color = "rgba(220,50,30,.85)"}
     
     const commentsListElement = document.getElementById('comments-ul');
     commentsListElement.innerHTML = '';
-    for (i = 1; i < comments.length; i++) {
+    for (i = 0; i < comments.length; i++) {
         commentsListElement.appendChild(
         createListElement(comments[i]));
     }
@@ -111,10 +109,10 @@ function writeStats(stat, name) {
 /* Creates an <li> element containing text. */
 function createListElement(commentObj) {
   var name = commentObj["name"];
-  var comment = commentObj["comment"];
+  var comment = commentObj["comm"];
   var rating = commentObj["rating"];
   var id = commentObj["id"];
-  var date = timeConverter(commentObj["timestamp"]);
+  var date = timeConverter(commentObj["ts"]);
 
   const liElement = document.createElement('li');
   liElement.innerHTML = liHTML(name,comment,rating,date, id);
