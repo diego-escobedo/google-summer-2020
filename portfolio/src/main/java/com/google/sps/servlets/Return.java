@@ -1,13 +1,12 @@
 package com.google.sps.servlets;
 
-public class Comment {
-    public String name = "";
-    public String comm = "";
-    public int rating = 0;
-    public long id = 0; 
-    public long ts = 0;
+public class Return {
+    public ArrayList<Comment> comments = new ArrayList<Comment>();
+    public int totalComments = 0;
+    public double avgRating = 0;
+    public double id = 0; 
 
-    public Comment(String name, String comm, int rating,long id, long ts ) {
+    public Comment(ArrayList<Comment> comments, int totalComments,double avgRating) {
     // the s stands for starter
     this.name = name;
     this.comm = comm;
