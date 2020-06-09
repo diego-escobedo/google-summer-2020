@@ -20,18 +20,25 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/delete-data")
-public class DeleteServlet extends HttpServlet {
+@WebServlet("/delete-comment")
+public class DeleteComment extends HttpServlet {
+    private String getParameter(HttpServletRequest request, String name, String defaultValue) {
+    String value = request.getParameter(name);
+    if (value == null) {
+      return defaultValue;
+    }
+    return value;
+  }
   //get method: empty
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    
   }
   //post method
   @Override
@@ -39,12 +46,14 @@ public class DeleteServlet extends HttpServlet {
     Query query = new Query("Comment");
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
+    long deleteId =  Long.parseLong(getParameter(request, "id", ""));
 
     for (Entity entity : results.asIterable()) {
-      datastore.delete(entity.getKey());
+        if ((long)entity.getKey().getId() == deleteId) {
+            datastore.delete(entity.getKey());
+            break;
+        }
     }
-    
-    response.sendRedirect("/index.html");
+
   }
 }
-

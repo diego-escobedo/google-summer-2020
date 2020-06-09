@@ -57,14 +57,28 @@ function toggle(project) {
   }
 }
 
-function getComments() {
-  var maxcom = document.getElementById("max-comments").value;
-  var url = "/data?max-comments=".concat(maxcom);
-  fetch(url).then(response => response.json()).then((comments) => {
-    // comments is an object, not a string, so we have to
-    // reference its fields to create HTML content
 
-    const commentsListElement = document.getElementById('comment-section');
+function getComments() {
+    const maxcom = document.getElementById("max-comments-select").value;
+    const sort = document.getElementById("sort-select").value;
+    var url = "/data?max-comments=".concat(maxcom,"&sort=",sort);
+    fetch(url).then(response => response.json()).then((returnObj) => {
+
+    var comments = returnObj["comments"]
+    const commentsStatsElement = document.getElementById('comment-stats');
+    commentsStatsElement.innerHTML = '';
+    commentsStatsElement.appendChild(
+        writeStats(returnObj["totalComments"], "Total Comments"));
+    commentsStatsElement.appendChild(
+        writeStats(returnObj["avgRating"], "Average Rating"));
+    commentsStatsElement.appendChild(
+        writeStats(returnObj["nps"], "Net Promoter Score"));
+
+    const nps_icon = document.getElementById('nps-icon');
+    if (returnObj["nps"] > 30) {nps_icon.style.color = "rgba(118,186,90,.85)"}
+    if (returnObj["nps"] < 0) {nps_icon.style.color = "rgba(220,50,30,.85)"}
+    
+    const commentsListElement = document.getElementById('comments-ul');
     commentsListElement.innerHTML = '';
     for (i = 0; i < comments.length; i++) {
         commentsListElement.appendChild(
@@ -73,11 +87,72 @@ function getComments() {
   });
 }
 
-/** Creates an <li> element containing text. */
-function createListElement(text) {
+function writeStats(stat, name) { 
+    const liElement = document.createElement('li');
+    liElement.setAttribute("id", "stat");
+    if (name === "Total Comments") {
+            liElement.innerHTML = '<i class="fas fa-comments fa-2x" id="comments-icon"></i>'  + 
+                                '<p>' + name + ": " + stat + '</p>';
+    } 
+    if (name === "Average Rating") {
+            liElement.innerHTML = '<i class="fas fa-star-half-alt fa-2x" id="rtg-icon"></i>'  + 
+                                '<p>' + name + ": " + stat + '</p>';
+    } 
+    if (name === "Net Promoter Score") {
+            liElement.innerHTML = '<i class="fas fa-arrow-circle-up fa-2x" id="nps-icon"></i>'  + 
+                                '<p>' + name + ": " + stat + '</p>';
+    } 
+    
+    return liElement;
+}
+
+/* Creates an <li> element containing text. */
+function createListElement(commentObj) {
+  var name = commentObj["name"];
+  var comment = commentObj["comm"];
+  var rating = commentObj["rating"];
+  var id = commentObj["id"];
+  var date = timeConverter(commentObj["ts"]);
+
   const liElement = document.createElement('li');
-  liElement.innerText = text;
+  liElement.innerHTML = liHTML(name,comment,rating,date, id);
   return liElement;
+}
+
+function liHTML(name,comment,rating, date, id) {
+  var html = '<footer class="post-info">' +
+      '<div class="separated horiz-flex-div" >' +  
+        '<abbr title="' + date + '">' + date + '</abbr>' +
+        '<button onClick="postDeleteComment(' + id + ');" class="inv-btn">' +
+            '<i class="far fa-trash-alt"></i>' +
+        '</button>' + 
+      '</div>' +
+      '<div class="horiz-flex-div">' + 
+        '<address class="author"> <b>' + 'By ' + name + '</b></address>' +
+        '<address class="rtg">' + 'Rating: ' + rating + '</address>' +
+      '</div>' +
+      '</footer>' +
+      '<div class="comment-text-div">' + '<p>' + comment + '</p>' + '</div>';
+
+  return html;
+}
+
+function postDeleteComment(id) {
+    var params = new URLSearchParams();
+    params.append('id', id);
+    let response = fetch('/delete-comment', {method: 'POST', body: params}).then(getComments());
+}
+
+function timeConverter(UNIX_timestamp){
+  var a = new Date(UNIX_timestamp);
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var year = a.getFullYear();
+  var month = months[a.getMonth()];
+  var date = a.getDate();
+  var hour = a.getHours();
+  var min = a.getMinutes() < 10 ? '0' + a.getMinutes() : a.getMinutes();
+  var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min;
+  return time;
 }
 
 function deleteComments() {

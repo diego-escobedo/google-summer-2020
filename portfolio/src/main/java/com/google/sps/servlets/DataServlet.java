@@ -20,23 +20,25 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.datastore.FetchOptions;
+import com.google.sps.servlets.Comment;
 import com.google.gson.Gson;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.lang.Integer;
 import java.util.ArrayList;
 import java.util.List;
+import java.text.DecimalFormat;
 import com.google.gson.Gson;
-import com.google.appengine.api.datastore.FetchOptions;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  //class methhods: convert to JSon and get parameter
-  private String convertToJson(ArrayList<String> commentList) {
+
+  //class methhods: convert to JSON, get parameter, and get a query
+  private String convertToJson(Return commentList) {
     Gson gson = new Gson();
     return gson.toJson(commentList);
   }
@@ -48,46 +50,79 @@ public class DataServlet extends HttpServlet {
     }
     return value;
   }
-  // our datastructure for now.... very simple
-  private ArrayList<String> commentList = new ArrayList<String>();//Creating arraylist
+
+  private Query getQuerySort(String sortMethod) {
+    SortDirection sortDir = sortMethod.endsWith("asc") ? SortDirection.ASCENDING : SortDirection.DESCENDING;
+    String sortCriteria = "";
+
+    if (sortMethod.startsWith("ts")) {sortCriteria = "timestamp";}
+    else if (sortMethod.startsWith("rtg")) {sortCriteria = "rating";}
+    else if (sortMethod.startsWith("author")) {sortCriteria = "name";}
+    else if (sortMethod.startsWith("commlen")) {sortCriteria = "comment_length";}
+
+    return new Query("Comment").addSort(sortCriteria,sortDir);
+  }
+
   //get method
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
+    String sortMethod = (String) getParameter(request,"sort", "ts_desc");
+    Query query = getQuerySort(sortMethod);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery r = datastore.prepare(query);
-
-    int max_comments = Integer.parseInt(getParameter(request,"max-comments", "5"));
-    ArrayList<String> comments = new ArrayList<String>();
-
     List<Entity> results = r.asList(FetchOptions.Builder.withDefaults());
-    for (int i = 0; i < Math.min(max_comments, results.size()); i++) {
+
+    int maxComments = Integer.parseInt(getParameter(request,"max-comments", "5"));
+    ArrayList<Comment> comments = new ArrayList<Comment>();
+
+    for (int i = 0; i < Math.min(maxComments, results.size()); i++) {
       Entity entity = results.get(i);
       String name = (String) entity.getProperty("name");
-      String comment = (String) entity.getProperty("comment");
-      //int rating = Integer.parseInt(entity.getProperty("rating"));
-      // ^ for some reason this crashes everything
-      comments.add(comment);
+      String comm = (String) entity.getProperty("comment");
+      int rating = ((Long)entity.getProperty("rating")).intValue();
+      long id = (long) entity.getKey().getId();
+      long ts = (long) entity.getProperty("timestamp");
+
+      Comment c = new Comment(name, comm, rating, id, ts);
+      comments.add(c);
     }
 
-    Gson gson = new Gson();
-    response.setContentType("application/json;");
-    response.getWriter().println(gson.toJson(comments));
+    double cumsum = 0;
+    double npsPositive = 0;
+    double npsNegative = 0;
+    for (int i = 0; i < results.size(); i++) {
+        Entity entity = results.get(i);
+        int rating = ((Long)entity.getProperty("rating")).intValue();
+        if (rating > 8) {npsPositive+=1;}
+        else if (rating < 7) {npsNegative+=1;}
+        cumsum +=  rating;
+    }
+    double nps = (npsPositive / (double) results.size() - npsNegative / (double) results.size())*100;
+    double avg = cumsum / (double) results.size();
+
+    DecimalFormat roundOne = new DecimalFormat("#.#");
+    DecimalFormat roundZero = new DecimalFormat("#");
+
+    Return ret = new Return(comments, results.size(), roundOne.format(avg), roundZero.format(nps));
+
+    response.setContentType("application/json");
+    response.getWriter().println(convertToJson(ret));
   }
+
   //post method
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
      // Get what we want to store from the request.
-    
+
     Entity commentEnt = new Entity("Comment");
     commentEnt.setProperty("name", request.getParameter("name"));
     commentEnt.setProperty("comment", request.getParameter("comment"));
     commentEnt.setProperty("rating", Integer.parseInt(request.getParameter("rating")));
     commentEnt.setProperty("timestamp", System.currentTimeMillis());
+    commentEnt.setProperty("comment_length", request.getParameter("comment").length());
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEnt);
     response.sendRedirect("/index.html");
   }
 }
-
