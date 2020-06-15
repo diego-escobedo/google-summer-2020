@@ -28,23 +28,22 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/delete-data")
 public class DeleteServlet extends HttpServlet {
-  //get method: empty
-  @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    
-  }
-  //post method
-  @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query("Comment");
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    PreparedQuery results = datastore.prepare(query);
+//get method: empty
+@Override
+public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-    for (Entity entity : results.asIterable()) {
-      datastore.delete(entity.getKey());
-    }
-    
-    response.sendRedirect("/index.html");
-  }
 }
+//post method
+@Override
+public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Query query = new Query("Comment");
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        PreparedQuery results = datastore.prepare(query);
 
+        for (Entity entity : results.asIterable()) {
+                datastore.delete(entity.getKey());
+        }
+
+        response.sendRedirect("/index.html");
+}
+}

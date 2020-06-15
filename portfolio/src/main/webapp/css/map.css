@@ -1,0 +1,32 @@
+#map {
+  border: thin solid black;
+  height: 600px;
+  width: 600px;
+}
+
+li {
+  margin: 0;
+  padding: 0.2em;
+}
+
+.vertical-flex {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  justify-content: flex-start;
+}
+
+.horizontal-flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+#submit {
+  width: 80px;
+  align-self: center;
+}
+
+#addresses {
+  height: 180px;
+}

@@ -29,31 +29,31 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/delete-comment")
 public class DeleteComment extends HttpServlet {
-    private String getParameter(HttpServletRequest request, String name, String defaultValue) {
-    String value = request.getParameter(name);
-    if (value == null) {
-      return defaultValue;
-    }
-    return value;
-  }
-  //get method: empty
-  @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-  }
-  //post method
-  @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query("Comment");
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    PreparedQuery results = datastore.prepare(query);
-    long deleteId =  Long.parseLong(getParameter(request, "id", ""));
-
-    for (Entity entity : results.asIterable()) {
-        if ((long)entity.getKey().getId() == deleteId) {
-            datastore.delete(entity.getKey());
-            break;
+private String getParameter(HttpServletRequest request, String name, String defaultValue) {
+        String value = request.getParameter(name);
+        if (value == null) {
+                return defaultValue;
         }
-    }
+        return value;
+}
+//get method: empty
+@Override
+public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+}
+//post method
+@Override
+public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Query query = new Query("Comment");
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        PreparedQuery results = datastore.prepare(query);
+        long deleteId =  Long.parseLong(getParameter(request, "id", ""));
 
-  }
+        for (Entity entity : results.asIterable()) {
+                if ((long)entity.getKey().getId() == deleteId) {
+                        datastore.delete(entity.getKey());
+                        break;
+                }
+        }
+
+}
 }
