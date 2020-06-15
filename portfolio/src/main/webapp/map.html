@@ -1,81 +1,84 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Map</title>
-    <meta charset="UTF-8">
 
-    <link rel="apple-touch-icon" sizes="180x180" href="./images/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon-16x16.png">
-    <link rel="manifest" href="./images/site.webmanifest">
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/map.css">
+<head>
+  <title>Map</title>
+  <meta charset="UTF-8">
 
-    <script src="https://kit.fontawesome.com/4a3abdf238.js" crossorigin="anonymous"></script>
-    <script src="./js/script.js"></script>
-    <script src="./js/map.js"></script>
-    <script src="./js/twoopt.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClRDerjj0vx5txwv9E5MsxRBiMnADtpxw"></script>
-  </head>
-  <body class="wrapper" onload="createMap()">
-    <header class="page-header">
-        <h1>diego.io</h1>
-        <input type="checkbox" id="nav-toggle" class="nav-toggle">
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="aboutme.html">About Me</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="resume.html">Resume</a></li>
-            </ul>
-        </nav>
-        <label for="nav-toggle" class=  "nav-toggle-label"><i class="fas fa-bars"></i></label>
-    </header>
+  <link rel="apple-touch-icon" sizes="180x180" href="./images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon-16x16.png">
+  <link rel="manifest" href="./images/site.webmanifest">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/map.css">
 
-    <div class="page-main">
-        <h1>Mini TSP Solver</h1>
-        <div class="horizontal-flex">
-            <div class="vertical-flex">
-                
-                <div id="map"></div>
-                <p>This page lets you input some addresses, and we'll use the 2-OPT algorithm
-                    to try and find the shortest route that passes through all of them and gets you back to where you started.
-                </p>
-            </div>
+  <script src="https://kit.fontawesome.com/4a3abdf238.js" crossorigin="anonymous"></script>
+  <script src="./js/script.js"></script>
+  <script src="./js/map.js"></script>
+  <script src="./js/twoopt.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClRDerjj0vx5txwv9E5MsxRBiMnADtpxw"></script>
+</head>
 
-            <div class="vertical-flex">
-                <h3>Enter up to 10 addresses</h3>
-                <textarea id="addresses" placeholder="Los Angeles, CA &#10;San Francisco, CA&#10;Reno, NV&#10;Phoenix,AZ"></textarea>
-                <input id="submit" type="button" value="Submit" onClick="createMap();triggerTSP('AIzaSyClRDerjj0vx5txwv9E5MsxRBiMnADtpxw');"/>  
-                <p>If you do more than 10 it won't work!</p>
-                <div class="vertical-flex">
-                    <h4>Order in Which to Visit Places</h4>
-                    <ul id = "address-ul"></ul>
-                </div>
-            </div>
+<body class="wrapper" onload="createMap()">
+  <header class="page-header">
+    <h1>diego.io</h1>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle">
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="aboutme.html">About Me</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="resume.html">Resume</a></li>
+      </ul>
+    </nav>
+    <label for="nav-toggle" class="nav-toggle-label"><i class="fas fa-bars"></i></label>
+  </header>
+
+  <div class="page-main">
+    <h1>Mini TSP Solver</h1>
+    <div class="horizontal-flex">
+      <div class="vertical-flex">
+
+        <div id="map"></div>
+        <p>This page lets you input some addresses, and we'll use the 2-OPT algorithm
+          to try and find the shortest route that passes through all of them and gets you back to where you started.
+        </p>
+      </div>
+
+      <div class="vertical-flex">
+        <h3>Enter up to 10 addresses</h3>
+        <textarea id="addresses" placeholder="Los Angeles, CA &#10;San Francisco, CA&#10;Reno, NV&#10;Phoenix,AZ"></textarea>
+        <input id="submit" type="button" value="Submit" onClick="createMap();triggerTSP('AIzaSyClRDerjj0vx5txwv9E5MsxRBiMnADtpxw');" />
+        <p>If you do more than 10 it won't work!</p>
+        <div class="vertical-flex">
+          <h4>Order in Which to Visit Places</h4>
+          <ul id="address-ul"></ul>
         </div>
-
-
+      </div>
     </div>
 
-    <footer class="page-footer">
-        <ul>
-            <li>
-                <a href="https://github.com/diego-escobedo">
-                    <i class="fab fa-github icon fa-2x"></i>
-                </a>
-            </li>
-            <li>
-                <a href="https://linkedin.com/in/diegoesc">
-                    <i class="fab fa-linkedin icon fa-2x"></i>
-                </a>
-            </li>
-            <li>
-                <a href="https://instagram.com/diego_escobedo/">
-                    <i class="fab fa-instagram icon fa-2x"></i>
-                </a>
-            </li>
-        </ul>
-    </footer>
-  </body>
+
+  </div>
+
+  <footer class="page-footer">
+    <ul>
+      <li>
+        <a href="https://github.com/diego-escobedo">
+          <i class="fab fa-github icon fa-2x"></i>
+        </a>
+      </li>
+      <li>
+        <a href="https://linkedin.com/in/diegoesc">
+          <i class="fab fa-linkedin icon fa-2x"></i>
+        </a>
+      </li>
+      <li>
+        <a href="https://instagram.com/diego_escobedo/">
+          <i class="fab fa-instagram icon fa-2x"></i>
+        </a>
+      </li>
+    </ul>
+  </footer>
+</body>
+
 </html>

@@ -1,134 +1,137 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <link rel="apple-touch-icon" sizes="180x180" href="./images/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon-16x16.png">
-    <link rel="manifest" href="./images/site.webmanifest">
-    <title>Home</title>
-    <link rel="stylesheet" href="./css/style.css">
-    <script src="https://kit.fontawesome.com/4a3abdf238.js" crossorigin="anonymous"></script>
-    <script src="./js/script.js"></script>
-  </head>
-  <body class="wrapper" onload="getComments()">
-    <header class="page-header">
-        <h1>diego.io</h1>
-        <input type="checkbox" id="nav-toggle" class="nav-toggle">
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="aboutme.html">About Me</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="resume.html">Resume</a></li>
-            </ul>
-        </nav>
-        <label for="nav-toggle" class=  "nav-toggle-label"><i class="fas fa-bars"></i></label>
-    </header>
-    <div class="page-main">
-        <div>
-            <h1>My Portfolio</h1>
-            <p>Hi! I'm Diego Escobedo, and I worked as a STEP Intern at Google during Summer 2020. This is my portfolio.</p>
-            <p>First, let me tell you a little bit about myself! I am a sophomore at MIT, studying Computer Science & Economics. I am a huge fan of board games, running, and hiking.</p>
-            <p>Click here to get a random fact about me:</p>
-            <button onclick="addRandomFact()">Generate Fact:</button>
-            <div id="fact-container"></div>
-        </div>
-        <br/>
 
-        <div class = "comments-section-wrapper">
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="180x180" href="./images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon-16x16.png">
+  <link rel="manifest" href="./images/site.webmanifest">
+  <title>Home</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <script src="https://kit.fontawesome.com/4a3abdf238.js" crossorigin="anonymous"></script>
+  <script src="./js/script.js"></script>
+</head>
 
-            <h3>Comments:</h3>
-
-            <div id="comments-stats-div" class="content-block">
-                <ul id="comment-stats"></ul>
-            </div>
-
-            <div id="write-a-comment-div">
-                <form action="/data" method="POST">
-                    <div class="horiz-flex-div">
-                        <div class="horiz-flex-div">
-                            <input type="text" placeholder="Name" name="name" id="name" autocomplete="off"></textarea>
-                        </div>
-
-                        <div class="horiz-flex-div">
-                            <select name="rating" id="rating">
-                                <option hidden selected value="8"> Site Rating</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                            </select>
-                        </div>
-                    </div>
-                    <p>
-                        <input autocomplete="off" type="text" placeholder="Enter your comment here..." name="comment" id="comment"></textarea>
-                    </p>
-                    <input type="submit" value="Post"/>
-                </form>
-            </div>
-
-            <div id="preferences-input-div" class="horiz-flex-div">
-                <form class="horiz-flex-div">
-                    <label for="max-comments">Comments Displayed:</label>
-                    <select onchange="getComments();" name="max-comments" id="max-comments-select">
-                            <option value="3">3</option>
-                            <option selected value="5">5</option>
-                            <option value="10">10</option>
-                            <option value="30">30</option>
-                    </select>
-                </form>
-
-                <form class="horiz-flex-div" style="padding-left:30px;">
-                    <label for="sort-select">Sort By:</label>
-                    <select onChange="getComments();" name="sort-select" id="sort-select">
-                            <option value="ts_desc"> Newest First</option>
-                            <option value="ts_asc">Oldest First</option>
-                            <option value="rtg_desc">Highest Rating</option>
-                            <option value="rtg_asc">Lowest Rating</option>
-                            <option value="commlen_desc">Longest Comment</option>
-                            <option value="commlen_asc">Shortest Comment</option>
-                            <option value="author_asc">Author: A-Z</option>
-                            <option value="author_desc">Author: Z-A</option>
-                    </select>
-                </form>
-            </div>
-
-            <div id="comments-display-div">
-                <ul id="comments-ul"></ul>
-            </div>
-
-            <div id="delete-all-comments-div" style="padding-bottom:1.5em">
-                <form action="\delete-data" method="POST">
-                    <button>Delete all Comments</button>
-                </form>
-            </div>
-        </div>
+<body class="wrapper" onload="getComments()">
+  <header class="page-header">
+    <h1>diego.io</h1>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle">
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="aboutme.html">About Me</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="resume.html">Resume</a></li>
+      </ul>
+    </nav>
+    <label for="nav-toggle" class="nav-toggle-label"><i class="fas fa-bars"></i></label>
+  </header>
+  <div class="page-main">
+    <div>
+      <h1>My Portfolio</h1>
+      <p>Hi! I'm Diego Escobedo, and I worked as a STEP Intern at Google during Summer 2020. This is my portfolio.</p>
+      <p>First, let me tell you a little bit about myself! I am a sophomore at MIT, studying Computer Science & Economics. I am a huge fan of board games, running, and hiking.</p>
+      <p>Click here to get a random fact about me:</p>
+      <button onclick="addRandomFact()">Generate Fact:</button>
+      <div id="fact-container"></div>
     </div>
-    <footer class="page-footer">
-        <ul>
-            <li>
-                <a href="https://github.com/diego-escobedo">
-                    <i class="fab fa-github icon fa-2x"></i>
-                </a>
-            </li>
-            <li>
-                <a href="https://linkedin.com/in/diegoesc">
-                    <i class="fab fa-linkedin icon fa-2x"></i>
-                </a>
-            </li>
-            <li>
-                <a href="https://instagram.com/diego_escobedo/">
-                    <i class="fab fa-instagram icon fa-2x"></i>
-                </a>
-            </li>
-        </ul>
-    </footer>
-  </body>
+    <br />
+
+    <div class="comments-section-wrapper">
+
+      <h3>Comments:</h3>
+
+      <div id="comments-stats-div" class="content-block">
+        <ul id="comment-stats"></ul>
+      </div>
+
+      <div id="write-a-comment-div">
+        <form action="/data" method="POST">
+          <div class="horiz-flex-div">
+            <div class="horiz-flex-div">
+              <input type="text" placeholder="Name" name="name" id="name" autocomplete="off"></textarea>
+            </div>
+
+            <div class="horiz-flex-div">
+              <select name="rating" id="rating">
+                <option hidden selected value="8"> Site Rating</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+            </div>
+          </div>
+          <p>
+            <input autocomplete="off" type="text" placeholder="Enter your comment here..." name="comment" id="comment"></textarea>
+          </p>
+          <input type="submit" value="Post" />
+        </form>
+      </div>
+
+      <div id="preferences-input-div" class="horiz-flex-div">
+        <form class="horiz-flex-div">
+          <label for="max-comments">Comments Displayed:</label>
+          <select onchange="getComments();" name="max-comments" id="max-comments-select">
+            <option value="3">3</option>
+            <option selected value="5">5</option>
+            <option value="10">10</option>
+            <option value="30">30</option>
+          </select>
+        </form>
+
+        <form class="horiz-flex-div" style="padding-left:30px;">
+          <label for="sort-select">Sort By:</label>
+          <select onChange="getComments();" name="sort-select" id="sort-select">
+            <option value="ts_desc"> Newest First</option>
+            <option value="ts_asc">Oldest First</option>
+            <option value="rtg_desc">Highest Rating</option>
+            <option value="rtg_asc">Lowest Rating</option>
+            <option value="commlen_desc">Longest Comment</option>
+            <option value="commlen_asc">Shortest Comment</option>
+            <option value="author_asc">Author: A-Z</option>
+            <option value="author_desc">Author: Z-A</option>
+          </select>
+        </form>
+      </div>
+
+      <div id="comments-display-div">
+        <ul id="comments-ul"></ul>
+      </div>
+
+      <div id="delete-all-comments-div" style="padding-bottom:1.5em">
+        <form action="\delete-data" method="POST">
+          <button>Delete all Comments</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <footer class="page-footer">
+    <ul>
+      <li>
+        <a href="https://github.com/diego-escobedo">
+          <i class="fab fa-github icon fa-2x"></i>
+        </a>
+      </li>
+      <li>
+        <a href="https://linkedin.com/in/diegoesc">
+          <i class="fab fa-linkedin icon fa-2x"></i>
+        </a>
+      </li>
+      <li>
+        <a href="https://instagram.com/diego_escobedo/">
+          <i class="fab fa-instagram icon fa-2x"></i>
+        </a>
+      </li>
+    </ul>
+  </footer>
+</body>
+
 </html>

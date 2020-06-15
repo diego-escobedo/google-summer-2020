@@ -1,8 +1,8 @@
 article {
-  padding:0 1em;
+  padding: 0 1em;
 }
 
-section{
+section {
   margin: 1em;
   padding: 1em;
 }
@@ -30,8 +30,6 @@ section{
   border-radius: 50%;
   max-width: 150px;
 }
-
-
 
 .resume-main {
   max-width: 1140px;
@@ -82,7 +80,7 @@ section{
 
 .skills .column ul li {
   display: inline-block;
-    white-space: nowrap;
+  white-space: nowrap;
 }
 
 .skills .column ul, ul.job-description {
@@ -90,7 +88,6 @@ section{
 }
 
 .skills .column-pic {
-
   max-width: 33%;
   padding: 2em auto auto 1em;
   align-items: center;
@@ -107,7 +104,7 @@ section{
   text-decoration: underline;
 }
 
-ul.job-description li:before{
+ul.job-description li:before {
   content: "✔";
   padding-right: 0.5em;
   color: #509e98;
@@ -131,11 +128,10 @@ ul.job-description li:before{
   .skills .column {
     max-width: 100%;
   }
-
 }
 
 .job-title strong {
-    font-size: 22px;
+  font-size: 22px;
 }
 
 .course .title {
@@ -144,8 +140,8 @@ ul.job-description li:before{
 }
 
 .list-box {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .list-box ul {
